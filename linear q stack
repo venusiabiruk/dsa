@@ -1,0 +1,36 @@
+class QueueUsingStack:
+    def __init__(self):
+        self.enqueue_stack = []
+        self.dequeue_stack = []
+
+    def enqueue(self, item):
+        self.enqueue_stack.append(item)
+
+    def dequeue(self):
+        if not self.dequeue_stack:
+            if not self.enqueue_stack:
+                return None  # Queue is empty
+            # Transfer elements from enqueue_stack to dequeue_stack
+            while self.enqueue_stack:
+                self.dequeue_stack.append(self.enqueue_stack.pop())
+        return self.dequeue_stack.pop()
+
+    def is_empty(self):
+        return not self.enqueue_stack and not self.dequeue_stack
+
+    def size(self):
+        return len(self.enqueue_stack) + len(self.dequeue_stack)
+
+# Example usage:
+queue = QueueUsingStack()
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+print("Dequeued:", queue.dequeue())  # Output: Dequeued: 1
+print("Dequeued:", queue.dequeue())  # Output: Dequeued: 2
+queue.enqueue(4)
+print("Size:", queue.size())  # Output: Size: 2
+print("Is empty?", queue.is_empty())  # Output: Is empty? False
+print("Dequeued:", queue.dequeue())  # Output: Dequeued: 3
+print("Dequeued:", queue.dequeue())  # Output: Dequeued: 4
+print("Is empty?", queue.is_empty())  # Output: Is empty? True

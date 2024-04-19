@@ -1,0 +1,98 @@
+class CircularQueue:
+  """
+  A circular queue implementation using a Python array.
+  """
+  def __init__(self, capacity):
+    """
+    Initializes the circular queue with a specified capacity.
+
+    Args:
+      capacity: The maximum number of elements the queue can hold.
+    """
+    self.capacity = capacity
+    self.items = [None] * capacity
+    self.front = self.rear = -1
+
+  def isEmpty(self):
+    """
+    Checks if the queue is empty.
+
+    Returns:
+      True if the queue is empty, False otherwise.
+    """
+    return self.front == -1
+
+  def isFull(self):
+    """
+    Checks if the queue is full.
+
+    Returns:
+      True if the queue is full, False otherwise.
+    """
+    return (self.rear + 1) % self.capacity == self.front
+
+  def size(self):
+    """
+    Returns the size of the queue.
+    Returns:
+      The number of elements in the queue.
+    """
+    if self.isEmpty():
+      return 0
+    return (self.rear + 1) % self.capacity - self.front
+
+  def enqueue(self, item):
+    """
+    Adds an element to the back of the queue.
+
+    Raises:
+      RuntimeError: If the queue is full.
+    """
+    if self.isFull():
+      raise RuntimeError("Queue overflow")
+    if self.isEmpty():
+      self.front = 0
+    self.rear = (self.rear + 1) % self.capacity
+    self.items[self.rear] = item
+
+  def dequeue(self):
+    """
+    Removes and returns the element from the front of the queue.
+
+    Raises:
+      RuntimeError: If the queue is empty.
+
+    Returns:
+      The element that was removed.
+    """
+    if self.isEmpty():
+      raise RuntimeError("Queue underflow")
+    item = self.items[self.front]
+    if self.front == self.rear:
+      self.front = self.rear = -1
+    else:
+      self.front = (self.front + 1) % self.capacity
+    return item
+  def peek(self):
+    """
+    Returns the element at the front of the queue without removing it.
+
+    Raises:
+      RuntimeError: If the queue is empty.
+
+    Returns:
+      The element at the front of the queue.
+    """
+    if self.isEmpty():
+      raise RuntimeError("Queue is empty")
+    return self.items[self.front]
+
+# Example usage
+myQueue = CircularQueue(5)
+myQueue.enqueue(1)
+myQueue.enqueue(2)
+myQueue.enqueue(3)
+
+print(myQueue.dequeue())  # Output: 1
+print(myQueue.peek())    # Output: 2
+print(myQueue.size())     # Output: 2

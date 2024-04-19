@@ -1,0 +1,75 @@
+class LinearQueue:
+  """
+  A simple linear queue implementation using a Python list.
+  """
+  def __init__(self):
+    self.items = []
+
+  def isEmpty(self):
+    """
+    Checks if the queue is empty.
+
+    Returns:
+      True if the queue is empty, False otherwise.
+    """
+    return len(self.items) == 0
+
+  def size(self):
+      """
+         Returns the size of the queue.
+
+         Returns:
+           The number of elements in the queue.
+         """
+      return len(self.items)
+
+  def enqueue(self, item):
+      """
+      Adds an element to the back of the queue.
+
+      Args:
+        item: The element to be added.
+      """
+      self.items.append(item)
+
+  def dequeue(self):
+      """
+      Removes and returns the element from the front of the queue.
+
+      Raises:
+        IndexError: If the queue is empty.
+
+      Returns:
+        The element that was removed.
+      """
+      if self.isEmpty():
+          raise IndexError("Queue is empty")
+      return self.items.pop(0)
+
+  def peek(self):
+    """
+    Returns the element at the front of the queue without removing it.
+
+    Raises:
+      IndexError: If the queue is empty.
+
+    Returns:
+      The element at the front of the queue.
+    """
+    if self.isEmpty():
+      raise IndexError("Queue is empty")
+    return self.items[0]
+
+# Example usage
+myQueue = LinearQueue()
+myQueue.enqueue(1)
+myQueue.enqueue(2)
+myQueue.enqueue(3)
+
+print(myQueue.dequeue())  # Output: 1
+print(myQueue.peek())    # Output: 2
+print(myQueue.size())     # Output: 2
+
+
+
+
